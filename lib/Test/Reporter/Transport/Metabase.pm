@@ -2,13 +2,15 @@ package Test::Reporter::Transport::Metabase;
 use 5.006;
 use warnings;
 use strict;
-our $VERSION = 0.001;
+our $VERSION = '1.999';
 use base 'Test::Reporter::Transport';
 
-use Carp                                   ();
-use Config::Perl::V                        ();
-use CPAN::Testers::Report                  ();
-use Metabase::User::Profile          ();
+use Carp                      ();
+use Config::Perl::V           ();
+use CPAN::Testers::Report     ();
+use JSON                      ();
+use Metabase::User::Profile   ();
+use Metabase::User::Secret    ();
 BEGIN {
   $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
 }
@@ -20,8 +22,8 @@ BEGIN {
 my %default_args = (
   client => 'Metabase::Client::Simple'
 );
-my @allowed_args = qw/uri profile client/;
-my @required_args = qw/uri profile/;
+my @allowed_args = qw/uri id_file client/;
+my @required_args = qw/uri id_file/;
 
 #--------------------------------------------------------------------------#
 # new
@@ -53,15 +55,13 @@ sub new {
 sub send {
   my ($self, $report) = @_;
 
-  unless ( $report->can('distfile') && $report->distfile ) {
+  unless ( eval { $report->distfile } ) {
     Carp::confess __PACKAGE__ . ": requires the 'distfile' parameter to be set\n"
-      . "Please update your client to a version that provides this information\n"
-      . "to Test::Reporter.  Report will not be sent.\n";
+      . "Please update your CPAN testing software to a version that provides \n"
+      . "this information to Test::Reporter.  Report will not be sent.\n";
   }
 
-  my $profile = eval { Metabase::User::Profile->load( $self->{profile} ) }
-    or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
-    . "from '$self->{profile}'\n";
+  my ($profile, $secret) = $self->_load_id_file;
 
   # Load specified metabase client.
   my $class = $self->{client};
@@ -71,6 +71,7 @@ sub send {
   my $client = $class->new(
     url => $self->{uri},
     profile => $profile,
+    secret => $secret,
   );
 
   # Get facts about Perl config that Test::Reporter doesn't capture
@@ -117,6 +118,26 @@ sub send {
   return $client->submit_fact($metabase_report);
 }
 
+sub _load_id_file {
+  my ($self) = shift;
+  
+  open my $fh, "<", $self->{id_file}
+    or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
+    . "\n$!";
+  
+  my $data = JSON->new->decode( do { local $/; <$fh> } );
+
+  my $profile = eval { Metabase::User::Profile->from_struct($data->[0]) }
+    or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
+    . "from '$self->{id_file}':\n$@";
+
+  my $secret = eval { Metabase::User::Secret->from_struct($data->[1]) }
+    or Carp::confess __PACKAGE__ . ": could not load Metabase secret\n"
+    . "from '$self->{id_file}':\n $@";
+
+  return ($profile, $secret);
+}
+
 1;
 
 __END__
@@ -131,7 +152,8 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
         transport => 'Metabase',
         transport_args => [
           uri     => 'http://metabase.example.com:3000/',
-          profile => '/home/jdoe/.metabase.profile',
+          profile => '/home/jdoe/.metabase/jdoe.profile.json',
+          secret  => '/home/jdoe/.metabase/jdoe.secret.json',
         ],
     );
 
@@ -162,7 +184,8 @@ to be provided as key-value pairs:
         transport => 'Metabase',
         transport_args => [
           uri     => 'http://metabase.example.com:3000/',
-          profile => '/home/jdoe/.metabase.profile',
+          profile => '/home/jdoe/.metabase/jdoe.profile.json',
+          secret  => '/home/jdoe/.metabase/jdoe.secret.json',
         ],
     );
 
@@ -181,7 +204,14 @@ The C<profile> argument must be a path to a saved Metabase::User::Profile.  If
 you do not already have a profile file, use the 'metabase-profile' program to
 create one.
 
-  $ metabase-profile -o ~/.metabase.profile
+  $ metabase-profile --output jdoe
+
+This creates the files F<jdoe.profile.json> and F<jdoe.secret.json>.
+
+=item C<secret> (required)
+
+The C<secret> argument must be a path to a saved Metabase::User::Secret.
+It is also created by the F<metabase-profile> program.
 
 =item C<client> (optional)
 
