@@ -2,7 +2,7 @@ package Test::Reporter::Transport::Metabase;
 use 5.006;
 use warnings;
 use strict;
-our $VERSION = '1.999001';
+our $VERSION = '1.999002';
 use base 'Test::Reporter::Transport';
 
 use Carp                      ();
@@ -11,6 +11,7 @@ use CPAN::Testers::Report     ();
 use JSON                      ();
 use Metabase::User::Profile   ();
 use Metabase::User::Secret    ();
+use Metabase::Client::Simple  ();
 BEGIN {
   $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
 }
@@ -69,7 +70,7 @@ sub send {
       or Carp::confess __PACKAGE__ . ": could not load client '$class':\n$@\n";
 
   my $client = $class->new(
-    url => $self->{uri},
+    uri => $self->{uri},
     profile => $profile,
     secret => $secret,
   );
