@@ -1,52 +1,90 @@
-Test-Reporter-Transport-Metabase
+NAME
+    Test::Reporter::Transport::Metabase - Metabase transport for
+    Test::Reporter
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+VERSION
+    version 1.999003
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+SYNOPSIS
+        my $report = Test::Reporter->new(
+            transport => 'Metabase',
+            transport_args => [
+              uri     => 'http://metabase.example.com:3000/',
+              id_file => '/home/jdoe/.metabase/metabase_id.json',
+            ],
+        );
 
+        # use space-separated in a CPAN::Reporter config.ini
+        transport = Metabase uri http://metabase.example.com:3000/ ...
 
-INSTALLATION
+DESCRIPTION
+    This module submits a Test::Reporter report to the specified Metabase
+    instance.
 
-To install this module, run the following commands:
+    This requires a network connection to the Metabase uri provided. If you
+    wish to save reports during offline operation, see
+    Test::Reporter::Transport::File. (Eventually, you may be able to run a
+    local Metabase instance to queue reports for later transmission, but
+    this feature has not yet been developed.)
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+USAGE
+    See Test::Reporter and Test::Reporter::Transport for general usage
+    information.
 
-SUPPORT AND DOCUMENTATION
+  Transport arguments
+    Unlike most other Transport classes, this class requires transport
+    arguments to be provided as key-value pairs:
 
-After installing, you can find documentation for this module with the
-perldoc command.
+        my $report = Test::Reporter->new(
+            transport => 'Metabase',
+            transport_args => [
+              uri     => 'http://metabase.example.com:3000/',
+              id_file => '/home/jdoe/.metabase/metabase_id.json',
+            ],
+        );
 
-    perldoc Test::Reporter::Transport::Metabase
+    Arguments include:
 
-You can also look for information at:
+    "uri" (required)
+        The "uri" argument gives the network location of a Metabase instance
+        to receive reports.
 
-    RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Test-Reporter-Transport-Metabase
+    "id_file" (required)
+        The "id_file" argument must be a path to a Metabase ID file. If you
+        do not already have an ID file, use the metabase-profile program to
+        create one.
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Test-Reporter-Transport-Metabase
+          $ metabase-profile
 
-    CPAN Ratings
-        http://cpanratings.perl.org/d/Test-Reporter-Transport-Metabase
+        This creates the file metabase_id.json in the current directory. You
+        can also give an "--output" argument to save the file to a different
+        location or with a different name.
 
-    Search CPAN
-        http://search.cpan.org/dist/Test-Reporter-Transport-Metabase
+    "client" (optional)
+        The "client" argument is optional and specifies the type of
+        Metabase::Client to use to transmit reports to the target Metabase.
+        It defaults to Metabase::Client::Simple.
 
+METHODS
+    These methods are only for internal use by Test::Reporter.
 
-COPYRIGHT AND LICENCE
+  new
+        my $sender = Test::Reporter::Transport::File->new( $params );
 
-Copyright (C) 2009 Richard Dawe
+    The "new" method is the object constructor.
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+  send
+        $sender->send( $report );
+
+    The "send" method transmits the report.
+
+AUTHORS
+      David Golden <dagolden@cpan.org>
+      Richard Dawe <richdawe@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2010 by David Golden.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

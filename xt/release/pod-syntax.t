@@ -7,11 +7,9 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 # 
+use Test::More;
 
-use Test::More tests => 1;
+eval "use Test::Pod 1.00";
+plan skip_all => "Test::Pod 1.00 required for testing POD" if $@;
 
-BEGIN {
-	use_ok( 'Test::Reporter::Transport::Metabase' );
-}
-
-diag( "Testing Test::Reporter::Transport::Metabase $Test::Reporter::Transport::Metabase::VERSION, Perl $], $^X" );
+all_pod_files_ok();

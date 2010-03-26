@@ -1,8 +1,18 @@
-package Test::Reporter::Transport::Metabase;
+# 
+# This file is part of Test-Reporter-Transport-Metabase
+# 
+# This software is copyright (c) 2010 by David Golden.
+# 
+# This is free software; you can redistribute it and/or modify it under
+# the same terms as the Perl 5 programming language system itself.
+# 
 use 5.006;
 use warnings;
 use strict;
-our $VERSION = '1.999002';
+package Test::Reporter::Transport::Metabase;
+our $VERSION = '1.999003';
+# ABSTRACT: Metabase transport for Test::Reporter
+
 use base 'Test::Reporter::Transport';
 
 use Carp                      ();
@@ -58,7 +68,7 @@ sub send {
 
   unless ( eval { $report->distfile } ) {
     Carp::confess __PACKAGE__ . ": requires the 'distfile' parameter to be set\n"
-      . "Please update your CPAN testing software to a version that provides \n"
+      . "Please update CPAN::Reporter and/or CPANPLUS to a version that provides \n"
       . "this information to Test::Reporter.  Report will not be sent.\n";
   }
 
@@ -81,6 +91,7 @@ sub send {
   # was run on
   my $perlv = $report->{_perl_version}->{_myconfig};
   my $config = Config::Perl::V::summary(Config::Perl::V::plv2hash($perlv));
+  my $perl_version = $report->{_perl_version}{_version} || $config->{version};
 
   # Build CPAN::Testers::Report with its various component facts.
   my $metabase_report = CPAN::Testers::Report->open(
@@ -92,7 +103,7 @@ sub send {
     osname        => $config->{osname},
     osversion     => $report->{_perl_version}{_osvers},
     archname      => $report->{_perl_version}{_archname},
-    perl_version   => $config->{version},
+    perl_version  => $perl_version,
     textreport    => $report->report
   });
 
@@ -141,11 +152,17 @@ sub _load_id_file {
 
 1;
 
-__END__
+
+
+=pod
 
 =head1 NAME
 
 Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
+
+=head1 VERSION
+
+version 1.999003
 
 =head1 SYNOPSIS
 
@@ -235,24 +252,19 @@ The C<send> method transmits the report.
 
 =head1 AUTHORS
 
-  David A. Golden (DAGOLDEN)
-  Richard Dawe (RICHDAWE)
+  David Golden <dagolden@cpan.org>
+  Richard Dawe <richdawe@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-  Portions Copyright (c) 2009 by Richard Dawe
-  Portions Copyright (c) 2009-2010 by David A. Golden
+This software is copyright (c) 2010 by David Golden.
 
-Licensed under the same terms as Perl itself (the "License").
-You may not use this file except in compliance with the License.
-A copy of the License was distributed with this file or you may obtain a
-copy of the License from http://dev.perl.org/licenses/
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+
+__END__
+
 

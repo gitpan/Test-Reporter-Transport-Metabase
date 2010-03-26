@@ -8,10 +8,8 @@
 # the same terms as the Perl 5 programming language system itself.
 # 
 
-use Test::More tests => 1;
+use Test::More;
 
-BEGIN {
-	use_ok( 'Test::Reporter::Transport::Metabase' );
-}
-
-diag( "Testing Test::Reporter::Transport::Metabase $Test::Reporter::Transport::Metabase::VERSION, Perl $], $^X" );
+eval "use Test::CPAN::Meta";
+plan skip_all => "Test::CPAN::Meta required for testing META.yml" if $@;
+meta_yaml_ok();

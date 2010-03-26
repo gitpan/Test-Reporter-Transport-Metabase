@@ -1,0 +1,36 @@
+---
+abstract: 'Metabase transport for Test::Reporter'
+author:
+  - 'David Golden <dagolden@cpan.org>'
+  - 'Richard Dawe <richdawe@cpan.org>'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.11
+generated_by: 'Dist::Zilla version 1.100711'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Test-Reporter-Transport-Metabase
+no_index:
+  directory:
+    - t
+    - xt
+    - examples
+provides:
+  Test::Reporter::Transport::Metabase:
+    file: lib/Test/Reporter/Transport/Metabase.pm
+    version: 1.999003
+requires:
+  CPAN::Testers::Report: 1.999
+  Carp: 0
+  Config::Perl::V: 0
+  JSON: 2
+  Metabase::Client::Simple: 0.004
+  Metabase::User::Profile: 0.006
+  Metabase::User::Secret: 0.006
+  Test::More: 0.88
+  Test::Reporter::Transport: 1.57
+resources:
+  repository: http://github.com/dagolden/test-reporter-transport-metabase
+version: 1.999003

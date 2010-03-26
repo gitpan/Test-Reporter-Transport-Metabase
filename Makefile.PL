@@ -1,20 +1,46 @@
-require 5.006;
-use inc::Module::Install;
 
-all_from('lib/Test/Reporter/Transport/Metabase.pm');
+use strict;
+use warnings;
 
-requires      ('CPAN::Testers::Report'        => 1.999   );
-requires      ('Carp'                         => 0       );
-requires      ('Config::Perl::V'              => 0.10    );
-requires      ('JSON'                         => 2.17    );
-requires      ('Metabase::Client::Simple'     => 0.004   );
-requires      ('Metabase::User::Profile'      => 0.003   );
-requires      ('Metabase::User::Secret'       => 0.003   );
-requires      ('Test::Reporter::Transport'    => 1.54    );
-requires      ('base'                         => 2.14    );
-build_requires('Test::More'                   => 0.88    );
 
-extra_tests;
 
-WriteAll;
+use ExtUtils::MakeMaker 6.11;
+
+
+
+my %WriteMakefileArgs = (
+                       'test' => {
+                                   'TESTS' => 't/*.t'
+                                 },
+                       'NAME' => 'Test::Reporter::Transport::Metabase',
+                       'DISTNAME' => 'Test-Reporter-Transport-Metabase',
+                       'CONFIGURE_REQUIRES' => {
+                                                 'ExtUtils::MakeMaker' => '6.11'
+                                               },
+                       'AUTHOR' => 'David Golden <dagolden@cpan.org>, Richard Dawe <richdawe@cpan.org>',
+                       'BUILD_REQUIRES' => {},
+                       'ABSTRACT' => 'Metabase transport for Test::Reporter',
+                       'EXE_FILES' => [],
+                       'VERSION' => '1.999003',
+                       'PREREQ_PM' => {
+                                        'Test::Reporter::Transport' => '1.57',
+                                        'Metabase::Client::Simple' => '0.004',
+                                        'Metabase::User::Secret' => '0.006',
+                                        'CPAN::Testers::Report' => '1.999',
+                                        'Carp' => '0',
+                                        'Test::More' => '0.88',
+                                        'Config::Perl::V' => '0',
+                                        'Metabase::User::Profile' => '0.006',
+                                        'JSON' => '2'
+                                      },
+                       'LICENSE' => 'perl'
+                     );
+
+
+delete $WriteMakefileArgs{LICENSE}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
 
