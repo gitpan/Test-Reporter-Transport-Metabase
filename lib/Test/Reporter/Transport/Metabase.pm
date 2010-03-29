@@ -1,16 +1,17 @@
 # 
 # This file is part of Test-Reporter-Transport-Metabase
 # 
-# This software is copyright (c) 2010 by David Golden.
+# This software is Copyright (c) 2010 by David Golden.
 # 
-# This is free software; you can redistribute it and/or modify it under
-# the same terms as the Perl 5 programming language system itself.
+# This is free software, licensed under:
+# 
+#   The Apache License, Version 2.0, January 2004
 # 
 use 5.006;
 use warnings;
 use strict;
 package Test::Reporter::Transport::Metabase;
-our $VERSION = '1.999003';
+our $VERSION = '1.999004';
 # ABSTRACT: Metabase transport for Test::Reporter
 
 use base 'Test::Reporter::Transport';
@@ -137,7 +138,7 @@ sub _load_id_file {
     or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
     . "\n$!";
   
-  my $data = JSON->new->decode( do { local $/; <$fh> } );
+  my $data = JSON->new->ascii->decode( do { local $/; <$fh> } );
 
   my $profile = eval { Metabase::User::Profile->from_struct($data->[0]) }
     or Carp::confess __PACKAGE__ . ": could not load Metabase profile\n"
@@ -162,7 +163,7 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
 
 =head1 VERSION
 
-version 1.999003
+version 1.999004
 
 =head1 SYNOPSIS
 
@@ -257,10 +258,11 @@ The C<send> method transmits the report.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by David Golden.
+This software is Copyright (c) 2010 by David Golden.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
 
 =cut
 

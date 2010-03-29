@@ -21,7 +21,7 @@ my %WriteMakefileArgs = (
                        'BUILD_REQUIRES' => {},
                        'ABSTRACT' => 'Metabase transport for Test::Reporter',
                        'EXE_FILES' => [],
-                       'VERSION' => '1.999003',
+                       'VERSION' => '1.999004',
                        'PREREQ_PM' => {
                                         'Test::Reporter::Transport' => '1.57',
                                         'Metabase::Client::Simple' => '0.004',
@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
                                         'Metabase::User::Profile' => '0.006',
                                         'JSON' => '2'
                                       },
-                       'LICENSE' => 'perl'
+                       'LICENSE' => 'apache'
                      );
 
 
