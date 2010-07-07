@@ -8,6 +8,6 @@ dist.ini
 lib/Test/Reporter/Transport/Metabase.pm
 t/00-compile.t
 t/00-load.t
-xt/release/meta-yaml.t
+xt/release/distmeta.t
 xt/release/pod-coverage.t
 xt/release/pod-syntax.t

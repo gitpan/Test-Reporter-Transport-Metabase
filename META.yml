@@ -5,8 +5,9 @@ author:
   - 'Richard Dawe <richdawe@cpan.org>'
 build_requires: {}
 configure_requires:
-  ExtUtils::MakeMaker: 6.11
-generated_by: 'Dist::Zilla version 1.100711'
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.101582, CPAN::Meta::Converter version 2.101590'
 license: apache
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -20,7 +21,7 @@ no_index:
 provides:
   Test::Reporter::Transport::Metabase:
     file: lib/Test/Reporter/Transport/Metabase.pm
-    version: 1.999004
+    version: 1.999005
 requires:
   CPAN::Testers::Report: 1.999
   Carp: 0
@@ -33,4 +34,4 @@ requires:
   Test::Reporter::Transport: 1.57
 resources:
   repository: http://github.com/dagolden/test-reporter-transport-metabase
-version: 1.999004
+version: 1.999005

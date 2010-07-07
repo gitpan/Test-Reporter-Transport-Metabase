@@ -11,10 +11,13 @@ use 5.006;
 use warnings;
 use strict;
 package Test::Reporter::Transport::Metabase;
-our $VERSION = '1.999004';
+BEGIN {
+  $Test::Reporter::Transport::Metabase::VERSION = '1.999005';
+}
 # ABSTRACT: Metabase transport for Test::Reporter
 
-use base 'Test::Reporter::Transport';
+use Test::Reporter::Transport;
+our @ISA = qw/Test::Reporter::Transport/;
 
 use Carp                      ();
 use Config::Perl::V           ();
@@ -163,7 +166,7 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
 
 =head1 VERSION
 
-version 1.999004
+version 1.999005
 
 =head1 SYNOPSIS
 
