@@ -12,20 +12,20 @@ use warnings;
 use strict;
 package Test::Reporter::Transport::Metabase;
 BEGIN {
-  $Test::Reporter::Transport::Metabase::VERSION = '1.999005';
+  $Test::Reporter::Transport::Metabase::VERSION = '1.999006';
 }
 # ABSTRACT: Metabase transport for Test::Reporter
 
-use Test::Reporter::Transport;
+use Test::Reporter::Transport 1.57 ();
 our @ISA = qw/Test::Reporter::Transport/;
 
-use Carp                      ();
-use Config::Perl::V           ();
-use CPAN::Testers::Report     ();
-use JSON                      ();
-use Metabase::User::Profile   ();
-use Metabase::User::Secret    ();
-use Metabase::Client::Simple  ();
+use Carp                            ();
+use Config::Perl::V                 ();
+use CPAN::Testers::Report     1.999 ();
+use JSON                      2     ();
+use Metabase::User::Profile   0.016 ();
+use Metabase::User::Secret    0.016 ();
+use Metabase::Client::Simple  0.008 ();
 BEGIN {
   $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
 }
@@ -137,7 +137,7 @@ sub send {
 sub _load_id_file {
   my ($self) = shift;
   
-  open my $fh, "<", $self->{id_file}
+  open my $fh, "<", glob( $self->{id_file} )
     or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
     . "\n$!";
   
@@ -166,7 +166,7 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
 
 =head1 VERSION
 
-version 1.999005
+version 1.999006
 
 =head1 SYNOPSIS
 

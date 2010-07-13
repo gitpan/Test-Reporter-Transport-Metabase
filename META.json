@@ -1,0 +1,66 @@
+{
+   "abstract" : "Metabase transport for Test::Reporter",
+   "author" : [
+      "David Golden <dagolden@cpan.org>",
+      "Richard Dawe <richdawe@cpan.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.101831, CPAN::Meta::Converter version 2.101670",
+   "license" : [
+      "apache_2_0"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Test-Reporter-Transport-Metabase",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "examples",
+         "corpus"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.31"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "CPAN::Testers::Report" : "1.999",
+            "Carp" : 0,
+            "Config::Perl::V" : 0,
+            "JSON" : "2",
+            "Metabase::Client::Simple" : "0.008",
+            "Metabase::User::Profile" : "0.016",
+            "Metabase::User::Secret" : "0.016",
+            "Test::Reporter::Transport" : "1.57",
+            "perl" : "5.006"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "File::Find" : 0,
+            "File::Temp" : 0,
+            "Test::More" : 0
+         }
+      }
+   },
+   "provides" : {
+      "Test::Reporter::Transport::Metabase" : {
+         "file" : "lib/Test/Reporter/Transport/Metabase.pm",
+         "version" : "1.999006"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "repository" : {
+         "url" : "http://github.com/dagolden/test-reporter-transport-metabase"
+      }
+   },
+   "version" : "1.999006"
+}
+

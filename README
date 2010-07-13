@@ -3,7 +3,7 @@ NAME
     Test::Reporter
 
 VERSION
-    version 1.999005
+    version 1.999006
 
 SYNOPSIS
         my $report = Test::Reporter->new(

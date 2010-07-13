@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+BEGIN { require 5.006; }
 
 use ExtUtils::MakeMaker 6.31;
 
@@ -11,7 +11,11 @@ use ExtUtils::MakeMaker 6.31;
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Metabase transport for Test::Reporter',
   'AUTHOR' => 'David Golden <dagolden@cpan.org>, Richard Dawe <richdawe@cpan.org>',
-  'BUILD_REQUIRES' => {},
+  'BUILD_REQUIRES' => {
+    'File::Find' => '0',
+    'File::Temp' => '0',
+    'Test::More' => '0'
+  },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
   },
@@ -24,13 +28,12 @@ my %WriteMakefileArgs = (
     'Carp' => '0',
     'Config::Perl::V' => '0',
     'JSON' => '2',
-    'Metabase::Client::Simple' => '0.004',
-    'Metabase::User::Profile' => '0.006',
-    'Metabase::User::Secret' => '0.006',
-    'Test::More' => '0.88',
+    'Metabase::Client::Simple' => '0.008',
+    'Metabase::User::Profile' => '0.016',
+    'Metabase::User::Secret' => '0.016',
     'Test::Reporter::Transport' => '1.57'
   },
-  'VERSION' => '1.999005',
+  'VERSION' => '1.999006',
   'test' => {
     'TESTS' => 't/*.t'
   }
