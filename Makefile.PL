@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'apache',
   'NAME' => 'Test::Reporter::Transport::Metabase',
   'PREREQ_PM' => {
-    'CPAN::Testers::Report' => '1.999',
+    'CPAN::Testers::Report' => '1.999001',
     'Carp' => '0',
     'Config::Perl::V' => '0',
     'JSON' => '2',
@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
     'Metabase::User::Secret' => '0.016',
     'Test::Reporter::Transport' => '1.57'
   },
-  'VERSION' => '1.999006',
+  'VERSION' => '1.999007',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -30,7 +30,7 @@
       },
       "runtime" : {
          "requires" : {
-            "CPAN::Testers::Report" : "1.999",
+            "CPAN::Testers::Report" : "1.999001",
             "Carp" : 0,
             "Config::Perl::V" : 0,
             "JSON" : "2",
@@ -52,7 +52,7 @@
    "provides" : {
       "Test::Reporter::Transport::Metabase" : {
          "file" : "lib/Test/Reporter/Transport/Metabase.pm",
-         "version" : "1.999006"
+         "version" : "1.999007"
       }
    },
    "release_status" : "stable",
@@ -61,6 +61,6 @@
          "url" : "http://github.com/dagolden/test-reporter-transport-metabase"
       }
    },
-   "version" : "1.999006"
+   "version" : "1.999007"
 }
 

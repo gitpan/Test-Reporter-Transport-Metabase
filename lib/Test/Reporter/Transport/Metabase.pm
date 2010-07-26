@@ -12,7 +12,7 @@ use warnings;
 use strict;
 package Test::Reporter::Transport::Metabase;
 BEGIN {
-  $Test::Reporter::Transport::Metabase::VERSION = '1.999006';
+  $Test::Reporter::Transport::Metabase::VERSION = '1.999007';
 }
 # ABSTRACT: Metabase transport for Test::Reporter
 
@@ -21,14 +21,11 @@ our @ISA = qw/Test::Reporter::Transport/;
 
 use Carp                            ();
 use Config::Perl::V                 ();
-use CPAN::Testers::Report     1.999 ();
+use CPAN::Testers::Report     1.999001 ();
 use JSON                      2     ();
 use Metabase::User::Profile   0.016 ();
 use Metabase::User::Secret    0.016 ();
 use Metabase::Client::Simple  0.008 ();
-BEGIN {
-  $_->load_fact_classes for qw/Metabase::User::Profile CPAN::Testers::Report/;
-}
 
 #--------------------------------------------------------------------------#
 # argument definitions
@@ -166,7 +163,7 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
 
 =head1 VERSION
 
-version 1.999006
+version 1.999007
 
 =head1 SYNOPSIS
 
