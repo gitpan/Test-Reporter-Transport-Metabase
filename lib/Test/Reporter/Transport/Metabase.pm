@@ -12,7 +12,7 @@ use warnings;
 use strict;
 package Test::Reporter::Transport::Metabase;
 BEGIN {
-  $Test::Reporter::Transport::Metabase::VERSION = '1.999007';
+  $Test::Reporter::Transport::Metabase::VERSION = '1.999008';
 }
 # ABSTRACT: Metabase transport for Test::Reporter
 
@@ -22,6 +22,7 @@ our @ISA = qw/Test::Reporter::Transport/;
 use Carp                            ();
 use Config::Perl::V                 ();
 use CPAN::Testers::Report     1.999001 ();
+use File::Glob                      ();
 use JSON                      2     ();
 use Metabase::User::Profile   0.016 ();
 use Metabase::User::Secret    0.016 ();
@@ -134,7 +135,7 @@ sub send {
 sub _load_id_file {
   my ($self) = shift;
   
-  open my $fh, "<", glob( $self->{id_file} )
+  open my $fh, "<", File::Glob::bsd_glob( $self->{id_file} )
     or Carp::confess __PACKAGE__. ": could not read ID file '$self->{id_file}'"
     . "\n$!";
   
@@ -163,7 +164,7 @@ Test::Reporter::Transport::Metabase - Metabase transport for Test::Reporter
 
 =head1 VERSION
 
-version 1.999007
+version 1.999008
 
 =head1 SYNOPSIS
 
@@ -253,8 +254,17 @@ The C<send> method transmits the report.
 
 =head1 AUTHORS
 
-  David Golden <dagolden@cpan.org>
-  Richard Dawe <richdawe@cpan.org>
+=over 4
+
+=item *
+
+David Golden <dagolden@cpan.org>
+
+=item *
+
+Richard Dawe <richdawe@cpan.org>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 

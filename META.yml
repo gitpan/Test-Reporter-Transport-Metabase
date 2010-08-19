@@ -10,7 +10,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.101831, CPAN::Meta::Converter version 2.101670'
+generated_by: 'Dist::Zilla version 4.101900, CPAN::Meta::Converter version 2.102160'
 license: apache
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,11 +25,12 @@ no_index:
 provides:
   Test::Reporter::Transport::Metabase:
     file: lib/Test/Reporter/Transport/Metabase.pm
-    version: 1.999007
+    version: 1.999008
 requires:
   CPAN::Testers::Report: 1.999001
   Carp: 0
   Config::Perl::V: 0
+  File::Glob: 0
   JSON: 2
   Metabase::Client::Simple: 0.008
   Metabase::User::Profile: 0.016
@@ -38,4 +39,4 @@ requires:
   perl: 5.006
 resources:
   repository: http://github.com/dagolden/test-reporter-transport-metabase
-version: 1.999007
+version: 1.999008

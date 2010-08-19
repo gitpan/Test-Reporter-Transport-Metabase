@@ -5,7 +5,7 @@
       "Richard Dawe <richdawe@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.101831, CPAN::Meta::Converter version 2.101670",
+   "generated_by" : "Dist::Zilla version 4.101900, CPAN::Meta::Converter version 2.102160",
    "license" : [
       "apache_2_0"
    ],
@@ -33,6 +33,7 @@
             "CPAN::Testers::Report" : "1.999001",
             "Carp" : 0,
             "Config::Perl::V" : 0,
+            "File::Glob" : 0,
             "JSON" : "2",
             "Metabase::Client::Simple" : "0.008",
             "Metabase::User::Profile" : "0.016",
@@ -52,7 +53,7 @@
    "provides" : {
       "Test::Reporter::Transport::Metabase" : {
          "file" : "lib/Test/Reporter/Transport/Metabase.pm",
-         "version" : "1.999007"
+         "version" : "1.999008"
       }
    },
    "release_status" : "stable",
@@ -61,6 +62,6 @@
          "url" : "http://github.com/dagolden/test-reporter-transport-metabase"
       }
    },
-   "version" : "1.999007"
+   "version" : "1.999008"
 }
 

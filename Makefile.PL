@@ -27,13 +27,14 @@ my %WriteMakefileArgs = (
     'CPAN::Testers::Report' => '1.999001',
     'Carp' => '0',
     'Config::Perl::V' => '0',
+    'File::Glob' => '0',
     'JSON' => '2',
     'Metabase::Client::Simple' => '0.008',
     'Metabase::User::Profile' => '0.016',
     'Metabase::User::Secret' => '0.016',
     'Test::Reporter::Transport' => '1.57'
   },
-  'VERSION' => '1.999007',
+  'VERSION' => '1.999008',
   'test' => {
     'TESTS' => 't/*.t'
   }
